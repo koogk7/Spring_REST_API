@@ -10,7 +10,6 @@
         Mockito.when(eventRepository.save(event)).thenReturn(event);  
       ```
   
-   
 ### WebMvcTest  
    - 웹과 관련된 빈들만 등록됨
    - 일부만 테스트하기 때문에 슬라이싱 테스트라고 함
@@ -35,7 +34,15 @@
                         .andExpect(header().exists(HttpHeaders.LOCATION))
                         .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE));
         ```
-     
+   -  강좌에서 아래와 같은 이슈 발생
+        - Controller에서 DTO를 받아 변환한 객체를 eventRepository에 넣어주기 때문에 이 목킹이 제대로 동작하지 않음
+        - 주어진 목킹은 event 객체가 들어 왔을 때 event를 리턴하는데, controller에서는 modelMaper가 리턴한 객체를 eventRepository에 넣어주기 때문에 null을 리턴
+        - 따라서 강의에서는 통합테스트로 변경, Mock 테스트는 목킹할 객체와 관리포인트가 많아지기 때문에 테스트 코드가 자주 깨짐 
+
+### SpringBootTest 
+ - 통합 테스트
+ - `@SpringBootApplicaion`을 찾아 여기서 부터 모든 빈들을 다 등록해줌
+ - `WebEnvironment` 기본값이 `MOCK`임으로 Mock MVC용 서블릿 사용 가능, 사용을 위해서 `@AutoConfigureMockMvc`를 추가 해야함
      
 ## 추가 Refer
 [스프링가이드](https://github.com/cheese10yun/spring-guide/blob/master/docs/test-guide.md#mock-api-테스트)

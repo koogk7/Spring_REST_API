@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest // 통합 테스트, Mock MVC 용 서블릿이 기본 값이므로 mockMVC를 사용할 수 있다. @SpringBootApplicaion을 찾아 여기서 부터 모든 빈들을 다 등록해줌
+@SpringBootTest // 통합 테스트, Mock MVC 용 서블릿이 기본 값이므로 mockMVC를 사용할 수 있다. @SpringBootApplicaion을 찾아 여기서 부터 모든 빈들을 다 등록해
 @AutoConfigureMockMvc
 public class EventControllerTests {
 
