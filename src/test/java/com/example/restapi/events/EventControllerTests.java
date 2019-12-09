@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.hateoas.MediaTypes;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,11 +18,11 @@ import java.time.LocalDateTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /*
-
+ 원래 TDD 는 요거 먼저 작성하고, 구현해야 하고
+ 하나의 데이터만 테스트 하는게 아니라 최소 데이터 3개를 가지고 만드는 것이 진정한 TDD
  */
 @RunWith(SpringRunner.class)
 @WebMvcTest // 웹과 관련된 빈들이 등록됨, 슬라이싱 테스트, 단위 테스트라고 보기에는 너무 많은 애들이 개입되어 있음
@@ -58,7 +59,9 @@ public class EventControllerTests {
                     .accept(MediaTypes.HAL_JSON))
                 .andDo(print()) // 응답 콘솔로 확인
                 .andExpect(status().isCreated()) // 201
-                .andExpect(jsonPath("id").exists());
+                .andExpect(jsonPath("id").exists())
+                .andExpect(header().exists(HttpHeaders.LOCATION))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE));
     }
 
 
