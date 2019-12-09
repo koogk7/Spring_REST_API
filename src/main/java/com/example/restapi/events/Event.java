@@ -36,6 +36,6 @@ public class Event {
     private boolean offline;
     private boolean free;
     @Enumerated(EnumType.STRING) // 기본 값은 Ordinary 즉 순서로 저장됨, String 권장
-    private EventStatus eventStatus;
+    private EventStatus eventStatus = EventStatus.DRAFT; // 기본값 설정
 
 }

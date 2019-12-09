@@ -15,6 +15,11 @@
    - 웹과 관련된 빈들만 등록됨
    - 일부만 테스트하기 때문에 슬라이싱 테스트라고 함
    - 단위 테스트라고 보기에는 너무 많은 애들이 존재
+   - 테스트의 관심사는 오직 Request와 그에 따른 Response
+   - 통합 테스트를 진행하기 어려운 테스트를 진행
+     - 외부 API 같은 Rollback 처리가 힘들거나 불가능한 테스트를 주로 사용
+     - 예를 들어 외부 결제 모듈 API를 콜하면 안 되는 케이스에서 주로 사용 할 수 있음
+     - 이런 문제는 통합 테스트에서 해당 객체를 Mock 객체로 변경해서 테스트를 변경해서 테스트
    - `MockMvc`  
         - 요청을 검증 할 수 있는 클래스
         - 목킹이 되어있는 서블릿에게 요청을 보내고 응답을 확인 할 수 있다
@@ -30,3 +35,7 @@
                         .andExpect(header().exists(HttpHeaders.LOCATION))
                         .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE));
         ```
+     
+     
+## 추가 Refer
+[스프링가이드](https://github.com/cheese10yun/spring-guide/blob/master/docs/test-guide.md#mock-api-테스트)
