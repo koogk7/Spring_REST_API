@@ -2,6 +2,7 @@ package com.example.restapi.events;
 
 import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -16,7 +17,11 @@ target 패키지에서 롬복이 적용된 코드를 확인 할 수 있음
  */
 @Builder @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter @EqualsAndHashCode(of = "id")
+@Entity
 public class Event {
+
+    @Id
+    @GeneratedValue
     private Integer id;
     private String name;
     private String description;
@@ -30,6 +35,7 @@ public class Event {
     private int limitOfEnrollment;
     private boolean offline;
     private boolean free;
+    @Enumerated(EnumType.STRING) // 기본 값은 Ordinary 즉 순서로 저장됨, String 권장
     private EventStatus eventStatus;
 
 }
