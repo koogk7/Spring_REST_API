@@ -21,5 +21,4 @@ public class EventDto {
     private int basePrice; // (optional)
     private int maxPrice; // (optional)
     private int limitOfEnrollment;
-
 }
